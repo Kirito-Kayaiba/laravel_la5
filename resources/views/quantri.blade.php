@@ -1,0 +1,1 @@
+<p>chào bạn <?=Auth::user()->name?></p>đây chỉ là trang dành cho admin
