@@ -5,6 +5,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuanTriTinController;
 use App\Http\Controllers\TinController;
+use App\Mail\GuiEmail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,9 @@ Route::get('/tin/xoa/{id}',[TinController::class,'xoa']);
 Route::get('/tin/capnhat/{id}',[TinController::class,'capnhat']);
 Route::post('/tin/capnhat/{id}',[TinController::class,'capnhat_']);
 Route::get('/quantritin', [QuanTriTinController::class, 'index']);
+Route::get("hs",[App\Http\Controllers\HsController::class,'hs']);
+Route::post("hs",[App\Http\Controllers\HsController::class,'hs_store'])->name('hs_store');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -43,5 +47,10 @@ Route::middleware('auth')->group(function () {
         return view('download');
     })->middleware('auth.basic');
 });
-
+Route::get("sv",[App\Http\Controllers\SvController::class,'sv']);
+Route::post("sv",[App\Http\Controllers\SvController::class,'sv_store'])->name('sv_store');
+Route::get("/guimail",function(){
+    Mail::mailer('mailgun')->send(new GuiEmail());
+    echo "Đã gửi email";
+});
 require __DIR__.'/auth.php';

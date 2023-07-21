@@ -29,7 +29,15 @@ class TinController extends Controller
     public function them(){
         return view("Tin/themtin");
     }
-    public function them_(){
+    public function store($file, $path)
+    {
+        $filename = $file->getClientOriginalName();
+        $file->move(public_path($path), $filename);
+        return $filename;
+    }
+    public function them_()
+    {
+
         $t = new \App\Models\tin();
         $t->tieuDe = $_POST['tieuDe'];
         $t->tomTat = $_POST['tomTat'];
