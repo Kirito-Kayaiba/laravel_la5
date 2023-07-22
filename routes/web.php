@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuanTriTinController;
 use App\Http\Controllers\TinController;
 use App\Mail\GuiEmail;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +33,7 @@ Route::post('/tin/capnhat/{id}',[TinController::class,'capnhat_']);
 Route::get('/quantritin', [QuanTriTinController::class, 'index']);
 Route::get("hs",[App\Http\Controllers\HsController::class,'hs']);
 Route::post("hs",[App\Http\Controllers\HsController::class,'hs_store'])->name('hs_store');
-
+Route::resource('products', ProductController::class);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
